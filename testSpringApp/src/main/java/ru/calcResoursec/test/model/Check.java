@@ -1,12 +1,10 @@
 package ru.calcResoursec.test.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
+@Table(name = "my_check")
 public class Check {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
@@ -14,7 +12,7 @@ public class Check {
 
     private String shopList;
     private Long sum;
-    private Date date;
+    private String date;
 
 
     public Integer getId() {
@@ -41,11 +39,11 @@ public class Check {
         this.sum = sum;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 }
