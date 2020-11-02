@@ -23,7 +23,11 @@ public class MainController {
 		model.addAttribute("name", name);
 		return "greeting";
 	}
-	
+	@GetMapping()
+	public String main(){
+		return "greeting";
+	}
+
 	@GetMapping("/add-Check")
 	public String getCheckForm(Map<String, Object> model) {
 		return "checkInp";

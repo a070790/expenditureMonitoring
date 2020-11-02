@@ -8,10 +8,14 @@ public class Purchase {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;
+    @ManyToOne
+    @JoinColumn(name = "Check_Id")
+    Check check;
 
     private String name;
     private String category;
-    private Long price;
+    private int quantity;
+    private float price;
 
     public Integer getId() {
         return id;
@@ -29,13 +33,19 @@ public class Purchase {
         return category;
     }
 
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public float getPrice() {
+        return price;
+    }
+
     public void setCategory(String category) {
         this.category = category;
     }
 
-    public Long getPrice() {
-        return price;
-    }
+
 
     public void setPrice(Long price) {
         this.price = price;
