@@ -3,19 +3,16 @@ package ru.calcResoursec.test.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "my_purchase")
+@Table(name = "my_purchases")
 public class Purchase {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;
-
     private String name;
     private String category;
     private Long price;
-
-    public Integer getId() {
-        return id;
-    }
+    private Integer quantity;
+    private Long sum;
 
     public String getName() {
         return name;

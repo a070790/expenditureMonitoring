@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>User page</title>
+</head>
+<body>
+    <div>
+        <form action="/logout" method="post">
+            <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
+            <input type="submit" value="Sign out">
+        </form>
+
+        <form method="post">
+            <input type="text" name="shopList" placeholder="Список покупок" />
+            <input type="text" name="sum" placeholder="Сумма" />
+            <input type="text" name="date" placeholder="Дата" />
+            <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
+            <button type="submit">Add new check</button>
+        </form>
+    </div>
+    <div>Check list</div>
+    <form action="/filter" method="post">
+        <input type="text" name="filter">
+        <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
+        <button type="submit">Search</button>
+    </form>
+    {{#checks}}
+        <div>
+            <b>{{id}}</b>
+            <i>{{shopList}}</i>
+            <i>{{sum}}</i>
+            <i>{{date}}</i>
+        </div>
+    {{/checks}}
+</body>
+</html>

@@ -4,31 +4,21 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "my_check")
+@Table(name = "my_checks")
 public class Check {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;
-
-    private String shopList;
     private Long sum;
     private String date;
+//    private User user;
 
-
-    public Integer getId() {
-        return id;
+    public Check() {
     }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getShopList() {
-        return shopList;
-    }
-
-    public void setShopList(String shopList) {
-        this.shopList = shopList;
+    public Check(Long sum, String date) {
+        this.sum = sum;
+        this.date = date;
     }
 
     public Long getSum() {
@@ -46,4 +36,12 @@ public class Check {
     public void setDate(String date) {
         this.date = date;
     }
+
+//    public User getUser() {
+//        return user;
+//    }
+//
+//    public void setUser(User user) {
+//        this.user = user;
+//    }
 }

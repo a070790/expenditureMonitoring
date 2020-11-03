@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import ru.calcResoursec.test.model.Check;
 import ru.calcResoursec.test.repository.CheckRepository;
 
-import java.util.Date;
 import java.util.Map;
 
 @Controller
@@ -17,29 +16,43 @@ public class MainController {
 	@Autowired
 	private CheckRepository checkRepository;
 
-	@GetMapping("/greeting")
-	public String greeting(@RequestParam(name="name", required=false,
-			defaultValue="World") String name, Model model) {
-		model.addAttribute("name", name);
-		return "greeting";
-	}
-	
-	@GetMapping("/add-Check")
-	public String getCheckForm(Map<String, Object> model) {
-		return "checkInp";
+	@GetMapping("/")
+	public String getHomePage(String name, Model model) {
+		return "home";
 	}
 
-	@PostMapping("/add-Check")
-	public String addNewCheck (@RequestParam String shopList
-			, @RequestParam Long sum, @RequestParam String date, Map<String, Object> model) {
-		Check check = new Check();
-		check.setShopList(shopList);
-		check.setSum(sum);
-		check.setDate(date);
+	@GetMapping("/main")
+	public String getMainPage(Map<String, Object> model) {
+		Iterable<Check> checks = checkRepository.findAll();
+		model.put("checks", checks);
+
+		return "main";
+	}
+
+	@PostMapping("/main")
+	public String addCheck(@RequestParam String shopList, @RequestParam Long sum,
+					  @RequestParam String date, Map<String, Object> model) {
+		Check check = new Check(sum, date);
 		checkRepository.save(check);
 
-		return "checkInp";
+		Iterable<Check> checks = checkRepository.findAll();
+		model.put("checks", checks);
+
+		return "main";
 	}
 
+	@PostMapping("/filter")
+	public String useFilter(@RequestParam Long filter, Map<String, Object> model) {
+		Iterable<Check> checks;
 
+		if (filter != null) {
+			checks = checkRepository.findBySum(filter);
+		} else {
+			checks = checkRepository.findAll();
+		}
+
+		model.put("checks", checks);
+
+		return "main";
+	}
 }
