@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="fa641ae5-9094-4527-90b7-2e7eb2605b29" name="Default Changelist" comment="" />
+    <list default="true" id="fa641ae5-9094-4527-90b7-2e7eb2605b29" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/testSpringApp/src/main/java/ru/calcResoursec/test/controller/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/testSpringApp/src/main/java/ru/calcResoursec/test/controller/MainController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/testSpringApp/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/testSpringApp/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/testSpringApp/src/main/resources/templates/registration.html" beforeDir="false" afterPath="$PROJECT_DIR$/testSpringApp/src/main/resources/templates/registration.html" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -19,25 +27,38 @@
   </component>
   <component name="ProjectId" id="1jov2XoNZw67G1UIUM3Sv790iNI" />
   <component name="ProjectViewState">
+    <option name="abbreviatePackageNames" value="true" />
+    <option name="autoscrollToSource" value="true" />
+    <option name="flattenPackages" value="true" />
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
     <option name="showMembers" value="true" />
     <option name="showVisibilityIcons" value="true" />
+    <option name="sortByType" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="RequestMappingsPanelOrder0" value="0" />
+    <property name="RequestMappingsPanelOrder1" value="1" />
+    <property name="RequestMappingsPanelWidth0" value="75" />
+    <property name="RequestMappingsPanelWidth1" value="75" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
   </component>
   <component name="RunManager">
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
-      <option name="arquillianRunConfiguration">
-        <value>
-          <option name="containerStateName" value="" />
-        </value>
-      </option>
-      <option name="TEST_OBJECT" value="class" />
+    <configuration name="Demo1Application" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="calculationValue" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="ru.calcResoursec.test.Demo1Application" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -52,6 +73,10 @@
       <option name="presentableId" value="Default" />
       <updated>1604483052612</updated>
       <workItem from="1604483053799" duration="744000" />
+      <workItem from="1604484426066" duration="86000" />
+      <workItem from="1604491508188" duration="101000" />
+      <workItem from="1604491959288" duration="3218000" />
+      <workItem from="1604496262592" duration="1379000" />
     </task>
     <servers />
   </component>
@@ -59,14 +84,54 @@
     <option name="version" value="3" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="751" y="378" key="#Scopes" timestamp="1604496409534">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="751" y="378" key="#Scopes/0.0.1920.1040@0.0.1920.1040" timestamp="1604496409534" />
     <state x="413" y="174" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1604483804059">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="413" y="174" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1604483804059" />
-    <state x="739" y="274" key="FileChooserDialogImpl" timestamp="1604483503862">
+    <state x="739" y="274" key="FileChooserDialogImpl" timestamp="1604491614119">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="739" y="274" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1604483503862" />
+    <state x="739" y="274" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1604491614119" />
+    <state width="1859" height="278" key="GridCell.Tab.0.bottom" timestamp="1604496943192">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1859" height="278" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1604496943192" />
+    <state width="1859" height="278" key="GridCell.Tab.0.center" timestamp="1604496943191">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1859" height="278" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1604496943191" />
+    <state width="1859" height="278" key="GridCell.Tab.0.left" timestamp="1604496943191">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1859" height="278" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1604496943191" />
+    <state width="1859" height="278" key="GridCell.Tab.0.right" timestamp="1604496943192">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1859" height="278" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1604496943192" />
+    <state width="1859" height="278" key="GridCell.Tab.1.bottom" timestamp="1604496943192">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1859" height="278" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1604496943192" />
+    <state width="1859" height="278" key="GridCell.Tab.1.center" timestamp="1604496943192">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1859" height="278" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1604496943192" />
+    <state width="1859" height="278" key="GridCell.Tab.1.left" timestamp="1604496943192">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1859" height="278" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1604496943192" />
+    <state width="1859" height="278" key="GridCell.Tab.1.right" timestamp="1604496943192">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1859" height="278" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1604496943192" />
+    <state x="439" y="94" key="SettingsEditor" timestamp="1604492709973">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="439" y="94" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1604492709973" />
     <state x="100" y="100" width="1719" height="840" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog" timestamp="1604483809241">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

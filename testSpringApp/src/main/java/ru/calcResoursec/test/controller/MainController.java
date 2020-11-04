@@ -8,6 +8,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.calcResoursec.test.model.Check;
 import ru.calcResoursec.test.repository.CheckRepository;
+import ru.calcResoursec.test.repository.PersonRepository;
+import ru.calcResoursec.test.model.Person;
+import ru.calcResoursec.test.model.Role;
+import java.util.Collections;
 
 import java.util.Date;
 import java.util.Map;
@@ -16,16 +20,17 @@ import java.util.Map;
 public class MainController {
 	@Autowired
 	private CheckRepository checkRepository;
+	private PersonRepository personRepository;
 
-	@GetMapping("/greeting")
+	@GetMapping("/index")
 	public String greeting(@RequestParam(name="name", required=false,
 			defaultValue="World") String name, Model model) {
 		model.addAttribute("name", name);
-		return "greeting";
+		return "index";
 	}
 	@GetMapping()
 	public String main(){
-		return "greeting";
+		return "index";
 	}
 
 	@GetMapping("/add-Check")
@@ -44,6 +49,22 @@ public class MainController {
 
 		return "checkInp";
 	}
+	@GetMapping("/registration")
+	public String registration(){
+		return "registration";
+	}
+	@PostMapping("/registration")
+	public String addPerson(Person person, Map <String, Object> model1){
+		Person personFromDb = personRepository.findBylogin(person.getLogin());
+				if(personFromDb!=null){
+					model1.put("message", "user Exist!");
+					return "registration";
+				}
+				person.setRoles(Collections.singleton(Role.USER));
+				personRepository.save(person);
+				return "redirect:lodin";
+	}
+
 
 
 }
