@@ -11,23 +11,37 @@
         </form>
 
         <form method="post">
-            <input type="text" name="shopList" placeholder="Список покупок" />
-            <input type="text" name="sum" placeholder="Сумма" />
-            <input type="text" name="date" placeholder="Дата" />
+<!--            <p>-->
+<!--                <label for="name">Укажите наименование покупки</label>-->
+<!--                <select name="name" id="name">-->
+<!--                    <option value="prod_1">prod_1</option>-->
+<!--                    <option value="prod_2">prod_2</option>-->
+<!--                    <option value="prod_3">prod_3</option>-->
+<!--                </select>-->
+<!--            </p>-->
+<!--            <p>-->
+<!--                <label for="category">Укажите категорию покупки</label>-->
+<!--                <select name="category" id="category">-->
+<!--                    <option value="category_1">category_1</option>-->
+<!--                    <option value="category_2">category_2</option>-->
+<!--                    <option value="category_3">category_3</option>-->
+<!--                </select>-->
+<!--            </p>-->
+            <input type="text" name="sum" placeholder="sum" />
+            <input type="text" name="date" placeholder="date" />
             <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
             <button type="submit">Add new check</button>
         </form>
     </div>
     <div>Check list</div>
-    <form action="/filter" method="post">
-        <input type="text" name="filter">
-        <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
-        <button type="submit">Search</button>
-    </form>
+        <form action="/filter" method="post">
+            <input type="text" name="filter">
+            <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
+            <button type="submit">Search</button>
+        </form>
     {{#checks}}
         <div>
             <b>{{id}}</b>
-            <i>{{shopList}}</i>
             <i>{{sum}}</i>
             <i>{{date}}</i>
         </div>

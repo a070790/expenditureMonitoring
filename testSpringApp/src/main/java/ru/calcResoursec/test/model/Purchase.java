@@ -14,6 +14,10 @@ public class Purchase {
     private Integer quantity;
     private Long sum;
 
+    @ManyToOne
+    @JoinColumn(name = "check_id")
+    private Check check;
+
     public String getName() {
         return name;
     }
@@ -36,5 +40,13 @@ public class Purchase {
 
     public void setPrice(Long price) {
         this.price = price;
+    }
+
+    public Check getCheck() {
+        return check;
+    }
+
+    public void setCheck(Check check) {
+        this.check = check;
     }
 }
