@@ -1,7 +1,8 @@
 package ru.calcResoursec.test.model;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.Set;
+import java.util.Set;
 
 @Entity
 @Table
@@ -12,7 +13,46 @@ public class Person {
     private String name;
     private String surname;
     private String login;
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
     private String password;
+    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
+    @CollectionTable(name = "person_role", joinColumns = @JoinColumn(name = "user_id"))
+    @Enumerated(EnumType.STRING)
+    private Set<Role> roles;
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    private boolean active;
 
     public Person(){}
     public Person(String name, String surname) {
