@@ -1,3 +1,5 @@
+
+
 <html>
 
 <body>
@@ -9,5 +11,17 @@
         <button type="submit">Добавить</button>
     </form>
 </div>
+
+<div>Список чеков</div>
+
+{{#check}}
+	<div>
+		<b>{{id}}</b>
+		<span>{{shopList}}</span>
+		<i>{{sum}}</i>
+		<i>{{date}}</i>
+	</div>
+{{/check}}
+
 </body>
 </html>
