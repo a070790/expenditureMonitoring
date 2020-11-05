@@ -1,0 +1,27 @@
+
+
+<html>
+
+<body>
+<div>
+    <form method="post">
+        <input type="text" name="shopList" placeholder="Список покупок" />
+        <input type="text" name="sum" placeholder="Сумма" />
+        <input type="text" name="date" placeholder="Дата" />
+        <button type="submit">Добавить</button>
+    </form>
+</div>
+
+<div>Список чеков</div>
+
+{{#check}}
+	<div>
+		<b>{{id}}</b>
+		<span>{{shopList}}</span>
+		<i>{{sum}}</i>
+		<i>{{date}}</i>
+	</div>
+{{/check}}
+
+</body>
+</html>

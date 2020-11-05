@@ -1,7 +1,11 @@
 package ru.calcResoursec.test.model;
 
 import javax.persistence.*;
+<<<<<<< HEAD
 import java.util.ArrayList;
+=======
+import java.util.Date;
+>>>>>>> 085dfb237fa2e800d5bdf056f0b15e981fef6519
 import java.util.List;
 
 @Entity
@@ -10,6 +14,9 @@ public class Check {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;
+    @ManyToOne
+    @JoinColumn(name = "Person_Id")
+    Person person;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -19,12 +26,29 @@ public class Check {
     private Long sum;
     private String date;
 
+<<<<<<< HEAD
     @OneToMany(
             mappedBy = "check",
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
     private List<Purchase> purchases = new ArrayList<>();
+=======
+    public Check(){
+
+    }
+
+     public Check(String shopList, Long sum, String date) {
+        this.shopList = shopList;
+        this.sum = sum;
+        this.date = date;
+    }
+
+    public Check(Person person){
+        this.person= person;
+    }
+
+>>>>>>> 085dfb237fa2e800d5bdf056f0b15e981fef6519
 
     public Check() {
     }
