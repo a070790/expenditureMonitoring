@@ -21,7 +21,6 @@ public class MainController {
 	@Autowired
 	private CheckRepository checkRepository;
 
-<<<<<<< HEAD
 	@GetMapping("/")
 	public String getHomePage() {
 		return "home";
@@ -57,24 +56,6 @@ public class MainController {
 		model.put("checks", checkUp);
 
 		return "main";
-=======
-	@GetMapping("/add-Check")
-	public String getCheckForm(Map<String, Object> model) {
-		Iterable<Check> check = checkRepository.findAll();
-		model.put("check", check);
-		return "checkInp";
-	}
-
-	@PostMapping("/add-Check")
-	public String addNewCheck (@RequestParam String shopList,
-			@RequestParam Long sum, @RequestParam String date, Map<String, Object> model) {
-		Check check = new Check(shopList, sum, date);
-		checkRepository.save(check);
-		
-		Iterable<Check> checkUp = checkRepository.findAll();
-		model.put("check", checkUp);
-		return "checkInp";
->>>>>>> 085dfb237fa2e800d5bdf056f0b15e981fef6519
 	}
 
 	@PostMapping("/filter")
@@ -93,12 +74,8 @@ public class MainController {
 			checkUp = checkRepository.findAll();
 		}
 
-<<<<<<< HEAD
 		model.put("checks", checkUp);
 
 		return "main";
 	}
 }
-=======
-}
->>>>>>> 085dfb237fa2e800d5bdf056f0b15e981fef6519
