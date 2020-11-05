@@ -11,6 +11,7 @@ import ru.calcResoursec.test.model.Check;
 import ru.calcResoursec.test.model.Purchase;
 import ru.calcResoursec.test.model.User;
 import ru.calcResoursec.test.repository.CheckRepository;
+import ru.calcResoursec.test.repository.PurchaseRepository;
 
 import java.util.Map;
 import java.util.regex.Pattern;
@@ -21,49 +22,59 @@ public class MainController {
 	private CheckRepository checkRepository;
 
 	@GetMapping("/")
-	public String getHomePage(String name, Model model) {
+	public String getHomePage() {
 		return "home";
 	}
 
 	@GetMapping("/main")
 	public String getMainPage(Map<String, Object> model) {
-		Iterable<Check> checks = checkRepository.findAll();
-		model.put("checks", checks);
+		Iterable<Check> checkUp = checkRepository.findAll();
+		model.put("checks", checkUp);
 
 		return "main";
 	}
 
 	@PostMapping("/main")
-	public String addCheck(@RequestParam Long sum, @RequestParam String date,
-						   @AuthenticationPrincipal User user, Map<String, Object> model) {
-		Check check = new Check(sum, date, user);
-		check.addPurchase();
+	public String addPurchase(@AuthenticationPrincipal User user,
+							  @RequestParam Long sum, @RequestParam Integer checkNum,
+							  @RequestParam String date, @RequestParam String name,
+							  @RequestParam String category,
+							  Map<String, Object> model) {
+
+		Check check = checkRepository.findOneByCheckNum(checkNum);
+
+		if (check == null) {
+			check = new Check(sum, checkNum, date, user);
+			check.addPurchase(new Purchase(name, category));
+		} else {
+			check.addPurchase(new Purchase(name, category));
+		}
 
 		checkRepository.save(check);
 
-		Iterable<Check> checks = checkRepository.findAll();
-		model.put("checks", checks);
+		Iterable<Check> checkUp = checkRepository.findAll();
+		model.put("checks", checkUp);
 
 		return "main";
 	}
 
 	@PostMapping("/filter")
 	public String useFilter(@RequestParam String filter, Map<String, Object> model) {
-		Iterable<Check> checks;
+		Iterable<Check> checkUp;
 		String dataRegex = "\\d{2}\\W?\\d{2}\\W?\\d{4}";
-		String sumRegex = "\\d+";
+		String numRegex = "\\d+";
 
-		if (Pattern.matches(sumRegex, filter)) {
-			Long sum = Long.parseLong(filter);
-			checks = checkRepository.findBySum(sum);
+		if (Pattern.matches(numRegex, filter)) {
+			Integer num = Integer.parseInt(filter);
+			checkUp = checkRepository.findByCheckNum(num);
 		}
 		else if (Pattern.matches(dataRegex, filter)) {
-			checks = checkRepository.findByDate(filter);
+			checkUp = checkRepository.findByDate(filter);
 		} else {
-			checks = checkRepository.findAll();
+			checkUp = checkRepository.findAll();
 		}
 
-		model.put("checks", checks);
+		model.put("checks", checkUp);
 
 		return "main";
 	}

@@ -18,6 +18,14 @@ public class Purchase {
     @JoinColumn(name = "check_id")
     private Check check;
 
+    public Purchase() {
+    }
+
+    public Purchase(String name, String category) {
+        this.name = name;
+        this.category = category;
+    }
+
     public String getName() {
         return name;
     }

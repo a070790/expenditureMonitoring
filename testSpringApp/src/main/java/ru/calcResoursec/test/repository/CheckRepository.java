@@ -6,6 +6,7 @@ import ru.calcResoursec.test.model.Check;
 import java.util.List;
 
 public interface CheckRepository extends CrudRepository<Check, Integer> {
-    List<Check> findBySum(Object sum);
+    Check findOneByCheckNum(Object checkNum);
+    List<Check> findByCheckNum(Object checkNum);
     List<Check> findByDate(Object date);
 }
