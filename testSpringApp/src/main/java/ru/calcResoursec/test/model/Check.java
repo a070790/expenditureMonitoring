@@ -1,52 +1,39 @@
 package ru.calcResoursec.test.model;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "my_check")
+@Table(name = "my_checks")
 public class Check {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;
-    @ManyToOne
-    @JoinColumn(name = "Person_Id")
-    Person person;
 
-    private String shopList;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    private Integer checkNum;
     private Long sum;
     private String date;
 
-    public Check(){
+    @OneToMany(
+            mappedBy = "check",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<Purchase> purchases = new ArrayList<>();
 
+    public Check() {
     }
 
-     public Check(String shopList, Long sum, String date) {
-        this.shopList = shopList;
+    public Check(Long sum, Integer checkNum, String date, User user) {
         this.sum = sum;
+        this.checkNum = checkNum;
         this.date = date;
-    }
-
-    public Check(Person person){
-        this.person= person;
-    }
-
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getShopList() {
-        return shopList;
-    }
-
-    public void setShopList(String shopList) {
-        this.shopList = shopList;
+        this.user = user;
     }
 
     public Long getSum() {
@@ -63,5 +50,23 @@ public class Check {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public void addPurchase(Purchase purchase) {
+        purchases.add(purchase);
+        purchase.setCheck(this);
+    }
+
+    public void removePurchase(Purchase purchase) {
+        purchases.remove(purchase);
+        purchase.setCheck(null);
     }
 }

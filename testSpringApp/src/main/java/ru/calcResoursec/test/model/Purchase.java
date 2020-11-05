@@ -3,22 +3,27 @@ package ru.calcResoursec.test.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "my_purchase")
+@Table(name = "my_purchases")
 public class Purchase {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;
-    @ManyToOne
-    @JoinColumn(name = "Check_Id")
-    Check check;
-
     private String name;
     private String category;
-    private int quantity;
-    private float price;
+    private Long price;
+    private Integer quantity;
+    private Long sum;
 
-    public Integer getId() {
-        return id;
+    @ManyToOne
+    @JoinColumn(name = "check_id")
+    private Check check;
+
+    public Purchase() {
+    }
+
+    public Purchase(String name, String category) {
+        this.name = name;
+        this.category = category;
     }
 
     public String getName() {
@@ -33,21 +38,23 @@ public class Purchase {
         return category;
     }
 
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public float getPrice() {
-        return price;
-    }
-
     public void setCategory(String category) {
         this.category = category;
     }
 
-
+    public Long getPrice() {
+        return price;
+    }
 
     public void setPrice(Long price) {
         this.price = price;
+    }
+
+    public Check getCheck() {
+        return check;
+    }
+
+    public void setCheck(Check check) {
+        this.check = check;
     }
 }
