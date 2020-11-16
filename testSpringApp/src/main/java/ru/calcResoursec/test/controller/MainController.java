@@ -12,12 +12,16 @@ import ru.calcResoursec.test.model.Purchase;
 import ru.calcResoursec.test.model.User;
 import ru.calcResoursec.test.repository.CheckRepository;
 import ru.calcResoursec.test.repository.PurchaseRepository;
+import ru.calcResoursec.test.service.Appropriator;
 
 import java.util.Map;
 import java.util.regex.Pattern;
 
 @Controller
 public class MainController {
+	private Appropriator appropriator = new Appropriator();
+	private boolean[] checkNums = new boolean[100];
+
 	@Autowired
 	private CheckRepository checkRepository;
 
@@ -35,12 +39,26 @@ public class MainController {
 	}
 
 	@PostMapping("/main")
-	public String addPurchase(@AuthenticationPrincipal User user,
-							  @RequestParam Long sum, @RequestParam Integer checkNum,
-							  @RequestParam String date, @RequestParam String name,
-							  @RequestParam String category,
-							  Map<String, Object> model) {
+	public String addPurchase(Map<String, Object> model) {
+		Iterable<Check> checkUp = checkRepository.findAll();
+		model.put("checks", checkUp);
 
+		return "main";
+	}
+
+	@GetMapping("/add_check")
+	public String getCheckInputPage(Map<String, Object> model) {
+		model.put("chNum", appropriator.getCheckNum());
+
+		return "checkinput";
+	}
+
+	@PostMapping("/add_check")
+	public String addCheck(@AuthenticationPrincipal User user,
+						   @RequestParam Long sum, @RequestParam Integer checkNum,
+						   @RequestParam String date, @RequestParam String name,
+						   @RequestParam String category, @RequestParam String sb,
+						   Map<String, Object> model) {
 		Check check = checkRepository.findOneByCheckNum(checkNum);
 
 		if (check == null) {
@@ -52,10 +70,14 @@ public class MainController {
 
 		checkRepository.save(check);
 
-		Iterable<Check> checkUp = checkRepository.findAll();
-		model.put("checks", checkUp);
+		model.put("chNum", checkNum);
 
-		return "main";
+		if (sb.equals("save")) {
+			model.put("chNum", );
+			return "redirect:main";
+		}
+
+		return "checkinput";
 	}
 
 	@PostMapping("/filter")
@@ -78,4 +100,6 @@ public class MainController {
 
 		return "main";
 	}
+
+	private void
 }

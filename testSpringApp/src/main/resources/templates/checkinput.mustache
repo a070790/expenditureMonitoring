@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>User page</title>
+</head>
+<body>
+<div>
+    <form action="/logout" method="post">
+        <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
+        <input type="submit" value="Sign out">
+    </form>
+</div>
+
+<h2>Добавление чека</h2>
+<div>
+    <form method="post">
+        <h3>Данные покупки</h3>
+        <p>
+            <label for="name">Наименование покупки</label>
+            <select name="name" id="name">
+                <option value="кафе">кафе</option>
+                <option value="яблоки">яблоки</option>
+                <option value="футболка">футболка</option>
+            </select>
+        </p>
+        <p>
+            <label for="category">Категория покупки</label>
+            <select name="category" id="category">
+                <option value="продукты">продукты</option>
+                <option value="одежда">одежда</option>
+                <option value="развлечения">развлечения</option>
+            </select>
+        </p>
+        <button type="submit">Добавить покупку</button>
+        <p></p>
+        <p></p>
+        <h3>Данные чека</h3>
+        <p>
+            <input type="text" name="sum" placeholder="сумма" />
+        </p>
+        <p>
+            <input type="hidden" name="checkNum" value="{{chNum}}" placeholder="номер чека" />
+        </p>
+        <p>
+            <input type="text" name="date" placeholder="дата" />
+        </p>
+        <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
+        <button type="submit" name="sb" value="save">Сохранить чек</button>
+    </form>
+</div>
+
+</body>
+</html>
