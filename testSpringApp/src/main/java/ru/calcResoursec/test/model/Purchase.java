@@ -21,9 +21,11 @@ public class Purchase {
     public Purchase() {
     }
 
-    public Purchase(String name, String category) {
+    public Purchase(String name, String category, Long price, Integer quantity) {
         this.name = name;
         this.category = category;
+        this.price = price;
+        this.quantity = quantity;
     }
 
     public String getName() {

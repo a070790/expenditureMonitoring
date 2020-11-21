@@ -31,21 +31,34 @@
                 <option value="развлечения">развлечения</option>
             </select>
         </p>
-        <button type="submit">Добавить покупку</button>
-        <p></p>
-        <p></p>
-        <h3>Данные чека</h3>
         <p>
-            <input type="text" name="sum" placeholder="сумма" />
+            <input type="text" name="price" placeholder="цена" />
         </p>
         <p>
-            <input type="hidden" name="checkNum" value="{{chNum}}" placeholder="номер чека" />
+            <input type="text" name="quantity" placeholder="количество" />
+        </p>
+        <p>
+            <input type="hidden" name="addPurchase" value="{{addPurchase}}" />
+        </p>
+        <button type="submit" name="addPurchase" value="true">Добавить покупку</button>
+        <p></p>
+        <p></p>
+
+        <h3>Данные чека</h3>
+        <p>
+            <input type="hidden" name="checkId" value="{{chId}}" />
+        </p>
+        <p>
+            <input type="hidden" name="wasSaved" value="{{wasSaved}}" />
         </p>
         <p>
             <input type="text" name="date" placeholder="дата" />
         </p>
+        <p>
+            <input type="text" name="sum" readonly="readonly" value="{{sum_}}" placeholder="сумма" />
+        </p>
         <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
-        <button type="submit" name="sb" value="save">Сохранить чек</button>
+        <button type="submit" name="wasSaved" value="true">Сохранить чек</button>
     </form>
 </div>
 

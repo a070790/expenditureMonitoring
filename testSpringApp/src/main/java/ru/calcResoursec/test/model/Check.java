@@ -15,7 +15,6 @@ public class Check {
     @JoinColumn(name = "user_id")
     private User user;
 
-    private Integer checkNum;
     private Long sum;
     private String date;
 
@@ -29,11 +28,23 @@ public class Check {
     public Check() {
     }
 
-    public Check(Long sum, Integer checkNum, String date, User user) {
+    public Check(User user, String date) {
+        this.user = user;
+        this.date = date;
+    }
+
+    public Check(User user, String date, Long sum) {
         this.sum = sum;
-        this.checkNum = checkNum;
         this.date = date;
         this.user = user;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public Long getSum() {

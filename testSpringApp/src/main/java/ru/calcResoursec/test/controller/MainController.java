@@ -19,9 +19,6 @@ import java.util.regex.Pattern;
 
 @Controller
 public class MainController {
-	private Appropriator appropriator = new Appropriator();
-	private boolean[] checkNums = new boolean[100];
-
 	@Autowired
 	private CheckRepository checkRepository;
 
@@ -48,58 +45,73 @@ public class MainController {
 
 	@GetMapping("/add_check")
 	public String getCheckInputPage(Map<String, Object> model) {
-		model.put("chNum", appropriator.getCheckNum());
-
+		model.put("chId", -1);
+		model.put("sum_", 0);
+		model.put("addPurchase", false);
+		model.put("wasSaved", false);
 		return "checkinput";
 	}
 
 	@PostMapping("/add_check")
 	public String addCheck(@AuthenticationPrincipal User user,
-						   @RequestParam Long sum, @RequestParam Integer checkNum,
-						   @RequestParam String date, @RequestParam String name,
-						   @RequestParam String category, @RequestParam String sb,
+						   @RequestParam Integer checkId,     @RequestParam String date,
+						   @RequestParam String name, 		  @RequestParam String category,
+						   @RequestParam Long price,  		  @RequestParam Integer quantity,
+						   @RequestParam Boolean addPurchase, @RequestParam Boolean wasSaved,
 						   Map<String, Object> model) {
-		Check check = checkRepository.findOneByCheckNum(checkNum);
-
-		if (check == null) {
-			check = new Check(sum, checkNum, date, user);
-			check.addPurchase(new Purchase(name, category));
-		} else {
-			check.addPurchase(new Purchase(name, category));
+		if (wasSaved) {
+			model.put("chId", checkId);
+			return "redirect:main";
 		}
 
-		checkRepository.save(check);
+		if (addPurchase) {
+			Check check = checkRepository.findOneById(checkId);
 
-		model.put("chNum", checkNum);
+			if (check == null) {
+				check = new Check(user, date);
+				check.addPurchase(new Purchase(name, category, price, quantity));
+				Long sum = price * quantity;
+				check.setSum(sum);
+				model.put("sum_", sum);
 
-		if (sb.equals("save")) {
-			model.put("chNum", );
-			return "redirect:main";
+				checkRepository.save(check);
+
+				check = checkRepository.findOneByUserAndDate(user, date);
+				checkId = check.getId();
+				model.put("chId", checkId);
+			} else {
+				check.addPurchase(new Purchase(name, category, price, quantity));
+				Long sum = check.getSum() + price * quantity;
+				check.setSum(sum);
+				model.put("sum_", sum);
+
+				checkRepository.save(check);
+
+				model.put("chId", checkId);
+			}
 		}
 
 		return "checkinput";
 	}
 
-	@PostMapping("/filter")
-	public String useFilter(@RequestParam String filter, Map<String, Object> model) {
-		Iterable<Check> checkUp;
-		String dataRegex = "\\d{2}\\W?\\d{2}\\W?\\d{4}";
-		String numRegex = "\\d+";
-
-		if (Pattern.matches(numRegex, filter)) {
-			Integer num = Integer.parseInt(filter);
-			checkUp = checkRepository.findByCheckNum(num);
-		}
-		else if (Pattern.matches(dataRegex, filter)) {
-			checkUp = checkRepository.findByDate(filter);
-		} else {
-			checkUp = checkRepository.findAll();
-		}
-
-		model.put("checks", checkUp);
-
-		return "main";
-	}
-
-	private void
+//	@PostMapping("/filter")
+//	public String useFilter(@RequestParam String filter, Map<String, Object> model) {
+//		Iterable<Check> checkUp;
+//		String dataRegex = "\\d{2}\\W?\\d{2}\\W?\\d{4}";
+//		String numRegex = "\\d+";
+//
+//		if (Pattern.matches(numRegex, filter)) {
+//			Integer num = Integer.parseInt(filter);
+//			checkUp = checkRepository.findByCheckNum(num);
+//		}
+//		else if (Pattern.matches(dataRegex, filter)) {
+//			checkUp = checkRepository.findByDate(filter);
+//		} else {
+//			checkUp = checkRepository.findAll();
+//		}
+//
+//		model.put("checks", checkUp);
+//
+//		return "main";
+//	}
 }

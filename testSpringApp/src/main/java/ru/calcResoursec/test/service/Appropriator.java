@@ -1,12 +1,25 @@
 package ru.calcResoursec.test.service;
 
 public class Appropriator {
-    public int getCheckNum(boolean[] array) {
+    private boolean[] nums;
+
+    public Appropriator() {
+        nums = new boolean[100];
+        initArray(nums);
+    }
+
+    private void initArray(boolean[] array) {
+        for (int i = 0; i < array.length; i++) {
+            array[i] = false;
+        }
+    }
+
+    public int setNum() {
         int checkNum;
         boolean isBusy;
 
-        for (int i = 1; i < array.length; i++) {
-            isBusy = array[i];
+        for (int i = 1; i < nums.length; i++) {
+            isBusy = nums[i];
 
             if (!isBusy) {
                 checkNum = i;
@@ -15,7 +28,12 @@ public class Appropriator {
         }
         return -1;
     }
-    public void removeCheckNum(boolean[] array) {
+
+    public boolean checkNum(int num) {
+        return true;
+    }
+
+    public void removeNum(int num) {
 
     }
 }
