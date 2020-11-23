@@ -5,8 +5,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import ru.calcResoursec.test.model.Role;
 import ru.calcResoursec.test.model.User;
 import ru.calcResoursec.test.repository.UserRepository;
+
+import java.util.Collections;
 
 @Controller
 public class RegistrationController {
@@ -28,6 +31,7 @@ public class RegistrationController {
 
         User user = new User(name, surname, username, password);
         user.setActive(true);
+        user.setRoles(Collections.singleton(Role.USER));
         userRepository.save(user);
 
         return "redirect:/login";

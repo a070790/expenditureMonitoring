@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Spring Security</title>
+</head>
+<body>
+<title>User Editor</title>
+<form action="/user" method="post">
+    <div> <input type="text" name="userid" value = "{{user.id}}"/></div>
+    <div> <input type="text" name="username" value = "{{user.username}}"/></div>
+    <div><input type="text" name="surname" value = "{{user.surname}}"/></div>
+    <label><input type ="checkbox" name = "userCheck" >USER</label>
+        <label><input type ="checkbox" name = "adminCheck" >ADMIN</label>
+
+    <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
+            <button type="submit">Save</button>
+        </form>
+</body>
+</html>
