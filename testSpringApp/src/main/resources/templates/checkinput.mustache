@@ -13,11 +13,11 @@
 
 <h2>Добавление чека</h2>
 <div>
-    <form method="post">
+    <form id="check" method="post">
         <h3>Данные покупки</h3>
         <p>
-            <label for="name">Наименование покупки</label>
-            <select name="name" id="name">
+            <label for="purchaseName">Наименование покупки</label>
+            <select name="purchaseName" id="purchaseName">
                 <option value="кафе">кафе</option>
                 <option value="яблоки">яблоки</option>
                 <option value="футболка">футболка</option>
@@ -37,28 +37,22 @@
         <p>
             <input type="text" name="quantity" placeholder="количество" />
         </p>
-        <p>
-            <input type="hidden" name="addPurchase" value="{{addPurchase}}" />
-        </p>
-        <button type="submit" name="addPurchase" value="true">Добавить покупку</button>
-        <p></p>
-        <p></p>
+        <button type="submit" form="check">Добавить покупку</button>
 
         <h3>Данные чека</h3>
         <p>
-            <input type="hidden" name="checkId" value="{{chId}}" />
-        </p>
-        <p>
-            <input type="hidden" name="wasSaved" value="{{wasSaved}}" />
-        </p>
-        <p>
-            <input type="text" name="date" placeholder="дата" />
+            <input type="text" name="date" value="{{date_}}" placeholder="дата" />
         </p>
         <p>
             <input type="text" name="sum" readonly="readonly" value="{{sum_}}" placeholder="сумма" />
         </p>
+        <input type="hidden" name="isSaved" value="false" />
         <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
-        <button type="submit" name="wasSaved" value="true">Сохранить чек</button>
+    </form>
+    <form id="save_check">
+        <input type="hidden" name="isSaved" value="true" />
+        <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
+        <button type="submit" form="save_check">Сохранить чек</button>
     </form>
 </div>
 
