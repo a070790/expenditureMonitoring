@@ -21,9 +21,11 @@ public class Purchase {
     public Purchase() {
     }
 
-    public Purchase(String name, String category) {
+    public Purchase(String name, String category, Long price, Integer quantity) {
         this.name = name;
         this.category = category;
+        this.price = price;
+        this.quantity = quantity;
     }
 
     public String getName() {
@@ -32,6 +34,14 @@ public class Purchase {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Check getCheck() {
+        return check;
+    }
+
+    public void setCheck(Check check) {
+        this.check = check;
     }
 
     public String getCategory() {
@@ -50,11 +60,11 @@ public class Purchase {
         this.price = price;
     }
 
-    public Check getCheck() {
-        return check;
+    public Integer getQuantity() {
+        return quantity;
     }
 
-    public void setCheck(Check check) {
-        this.check = check;
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
     }
 }

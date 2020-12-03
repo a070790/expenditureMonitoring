@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Страница пользователя</title>
+<!--    <style>-->
+<!--        .layer2 {-->
+<!--            position: absolute; /* Абсолютное позиционирование */-->
+<!--            bottom: 15px; /* Положение от нижнего края */-->
+<!--            right: 15px; /* Положение от правого края */-->
+<!--            line-height: 1px;-->
+<!--        }-->
+<!--    </style>-->
+</head>
+<body>
+<div align="center">
+    <form action="/logout" method="post">
+        <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
+        <input type="submit" value="Sign out">
+    </form>
+</div>
+
+<div align="center">
+    <h2>Добавление чека</h2>
+
+    <form id="check" method="post">
+        <h3>Введите данные покупки</h3>
+        <p>
+            <label for="purchaseName">Наименование покупки</label>
+            <select name="purchaseName" id="purchaseName">
+                <option value="кафе">кафе</option>
+                <option value="яблоки">яблоки</option>
+                <option value="футболка">футболка</option>
+            </select>
+        </p>
+        <p>
+            <label for="category">Категория покупки</label>
+            <select name="category" id="category">
+                <option value="продукты">продукты</option>
+                <option value="одежда">одежда</option>
+                <option value="развлечения">развлечения</option>
+            </select>
+        </p>
+        <p>
+            <input type="text" name="price" placeholder="цена" />
+        </p>
+        <p>
+            <input type="text" name="quantity" placeholder="количество" />
+        </p>
+
+        <h3>Введите данные чека</h3>
+        <p>
+            <label for="date">дата</label>
+            <input type="text" name="date" value="{{date}}" />
+            <label for="sum">сумма</label>
+            <input type="text" name="sum" readonly="readonly" value="{{sum}}" />
+            <input type="hidden" name="checkIndex" value="{{checkIndex}}" />
+            <input type="hidden" name="shouldBeSaved" value="false" />
+            <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
+        </p>
+
+        <button type="submit" form="check">Добавить покупку</button>
+    </form>
+    <form id="save_check" method="post">
+        <p>
+            <input type="hidden" name="purchaseName" value="no">
+            <input type="hidden" name="category" value="no">
+            <input type="hidden" name="price" value="0">
+            <input type="hidden" name="quantity" value="0">
+            <input type="hidden" name="date" value="{{date}}" />
+            <input type="hidden" name="checkIndex" value="{{checkIndex}}" />
+            <input type="hidden" name="shouldBeSaved" value="true" />
+            <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
+            <button type="submit" form="save_check">Сохранить чек</button>
+        </p>
+    </form>
+    <form id="edit_check" action="/edit_check" method="post">
+        <p>
+            <input type="hidden" name="checkIndex" value="{{checkIndex}}" />
+            <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
+            <button type="submit" form="edit_check">Редактировать чек</button>
+        </p>
+    </form>
+
+
+    {{#purchases}}
+        <div>
+            <i>{{name}}</i>
+            <i>{{category}}</i>
+            <i>{{price}}</i>
+            <i>{{quantity}}</i>
+        </div>
+    {{/purchases}}
+</div>
+
+</body>
+</html>

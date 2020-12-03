@@ -2,6 +2,7 @@ package ru.calcResoursec.test.model;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 @Entity
@@ -15,7 +16,6 @@ public class Check {
     @JoinColumn(name = "user_id")
     private User user;
 
-    private Integer checkNum;
     private Long sum;
     private String date;
 
@@ -29,19 +29,23 @@ public class Check {
     public Check() {
     }
 
-    public Check(Long sum, Integer checkNum, String date, User user) {
+    public Check(User user, String date) {
+        this.user = user;
+        this.date = date;
+    }
+
+    public Check(User user, String date, Long sum) {
         this.sum = sum;
-        this.checkNum = checkNum;
         this.date = date;
         this.user = user;
     }
 
-    public Long getSum() {
-        return sum;
+    public Integer getId() {
+        return id;
     }
 
-    public void setSum(Long sum) {
-        this.sum = sum;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getDate() {
@@ -52,12 +56,16 @@ public class Check {
         this.date = date;
     }
 
-    public User getUser() {
-        return user;
+    public Long getSum() {
+        return sum;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setSum(Long sum) {
+        this.sum = sum;
+    }
+
+    public Iterable<Purchase> getPurchases() {
+        return purchases;
     }
 
     public void addPurchase(Purchase purchase) {
@@ -65,8 +73,36 @@ public class Check {
         purchase.setCheck(this);
     }
 
-    public void removePurchase(Purchase purchase) {
-        purchases.remove(purchase);
-        purchase.setCheck(null);
+    public void removePurchase(int index) {
+        purchases.remove(index);
+    }
+
+    public Purchase getPurchase(int index) {
+        Purchase purchase = purchases.get(index);
+
+        return purchase;
+    }
+
+    public int searchPurchase(String purchaseName) {
+        if (!purchases.isEmpty()) {
+            Iterator<Purchase> iterator =  purchases.iterator();
+
+            int i = -1;
+            while (iterator.hasNext()) {
+                i++;
+
+                if (purchaseName.equals(iterator.next().getName())) {
+                    return i;
+                }
+            }
+        }
+        return -1;
+    }
+
+    public boolean isNotEmpty() {
+        if (purchases.isEmpty()) {
+            return false;
+        }
+        return true;
     }
 }

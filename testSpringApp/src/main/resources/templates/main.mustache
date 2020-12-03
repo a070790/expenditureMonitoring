@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title>User page</title>
+    <title>Страница пользователя</title>
 </head>
 <body>
 <div>
@@ -11,6 +11,7 @@
     </form>
 </div>
 
+<<<<<<< HEAD
 <h2>Ввод чека</h2>
 <div>
     <form method="post">
@@ -70,5 +71,54 @@
         <i>{{date}}</i>
     </div>
 {{/checks}}
+=======
+    <div align="center" >
+        <p>
+            <form action="/filter" method="post">
+                <input type="text" name="filter">
+                <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
+                <button type="submit">Поиск</button>
+            </form>
+        </p>
+        <p>
+            <form id="edit_check" action="/edit_check" method="get">
+                <input type="text" name="checkIdFromDB" placeholder="идентификатор чека" />
+                <input type="hidden" name="checkIndexFromArray" value="-1" />
+                <input type="hidden" name="requestCameFromInputPage" value="false" />
+                <input type="hidden" name="requestCameFromMainPage" value="true" />
+                <input type="hidden" name="checkIndex" value="-1" />
+                <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
+            </form>
+            <form id="add_check" action="/add_check" method="get">
+                <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
+            </form>
+
+            <button type="submit" form="edit_check">Редактировать чек</button>
+            <button type="submit" form="add_check">Добавить чек</button>
+        </p>
+    </div>
+
+    <div align="center">
+        <p>
+            <h2>Список чеков</h2>
+        </p>
+        <p>
+            {{#checks}}
+                <div>
+                    <i>{{id}}</i>
+                    <i>{{date}}</i>
+                    <i>{{sum}}</i>
+                </div>
+            {{/checks}}
+        </p>
+    </div>
+
+    <p>
+        <a href="/main">Вернуться к списку чеков</a>
+    </p>
+<!--    <p>-->
+<!--        <a href="/add_check">Добавить новый чек</a>-->
+<!--    </p>-->
+>>>>>>> testing
 </body>
 </html>
