@@ -134,6 +134,8 @@ public class MainController {
 		Iterable<Purchase> purchases = check.getPurchases();
 		model.put("purchases", purchases);
 
+		model.put("date", check.getDate());
+		model.put("sum", check.getSum());
 		model.put("checkIndexFromArray", checkIndexFromArray);
 		model.put("checkIdFromDB", checkIdFromDB);
 		model.put("requestCameFromInputPage", requestCameFromInputPage);
@@ -142,126 +144,118 @@ public class MainController {
 		return "checkedit";
 	}
 
-	@PostMapping("/edit_check")
-	public String editCheck(@RequestParam Integer checkIndex,
-							@RequestParam Integer checkId,
+	@GetMapping("/edit_purchase")
+	public String getPurchaseEditPage(@RequestParam Integer checkIndexFromArray,
+									  @RequestParam Integer checkIdFromDB,
 
-							@RequestParam String purchaseName,
+									  @RequestParam String purchaseName,
 
-							@RequestParam Boolean checkShouldBeEdited,
-							@RequestParam Boolean checkShouldBeRemoved,
-							@RequestParam Boolean requestCameFromInputPage,
-							@RequestParam Boolean requestCameFromMainPage,
-							Map<String, Object> model) {
+									  @RequestParam Boolean requestCameFromInputPage,
+									  @RequestParam Boolean requestCameFromMainPage,
+									  Map<String, Object> model) {
 		Check check = null;
 		Purchase purchase = null;
 		Integer purchaseIndex = -1;
 
-		if (checkShouldBeEdited) {
-			if (requestCameFromInputPage) {
-				check = checks.get(checkIndex);
-				purchaseIndex = check.searchPurchase(purchaseName);
-				purchase = check.getPurchase(purchaseIndex);
+		if (requestCameFromInputPage) {
+			check = checks.get(checkIndexFromArray);
+			purchaseIndex = check.searchPurchase(purchaseName);
+			purchase = check.getPurchase(purchaseIndex);
 
-				model.put("checkIndex", checkIndex);
-				model.put("checkId", -1);
-				model.put("purchaseIndex", purchaseIndex);
-			} else if (requestCameFromMainPage) {
-				check = checkRepository.findOneById(checkId);
-				purchaseIndex = check.searchPurchase(purchaseName);
-				purchase = check.getPurchase(purchaseIndex);
+			model.put("checkIndexFromArray", checkIndexFromArray);
+			model.put("checkIdFromDB", -1);
+			model.put("purchaseIndex", purchaseIndex);
+		} else if (requestCameFromMainPage) {
+			check = checkRepository.findOneById(checkIdFromDB);
+			purchaseIndex = check.searchPurchase(purchaseName);
+			purchase = check.getPurchase(purchaseIndex);
 
-				model.put("checkIndex", -1);
-				model.put("checkId", checkId);
-				model.put("purchaseIndex", purchaseIndex);
-			}
-
-			model.put("purchaseName", purchaseName);
-			model.put("category", purchase.getCategory());
-			model.put("price", purchase.getPrice());
-			model.put("quantity", purchase.getQuantity());
-
-			return "purchaseedit";
+			model.put("checkIndexFromArray", -1);
+			model.put("checkIdFromDB", checkIdFromDB);
+			model.put("purchaseIndex", purchaseIndex);
 		}
 
-		if (checkShouldBeRemoved) {
-			if (requestCameFromInputPage) {
-				checks.remove(checkIndex);
+		model.put("category", purchase.getCategory());
+		model.put("price", purchase.getPrice());
+		model.put("quantity", purchase.getQuantity());
 
-			} else if (requestCameFromMainPage) {
-				checkRepository.deleteById(checkId);
-			}
-		}
-
-		check = checks.get(checkIndex);
-
-		Iterable<Purchase> purchases = check.getPurchases();
-		model.put("purchases", purchases);
-
-		return "checkedit";
-	}
-
-	@GetMapping("/edit_purchase")
-	public String getPurchaseEditPage() {
+		model.put("requestCameFromInputPage", requestCameFromInputPage);
+		model.put("requestCameFromMainPage", requestCameFromMainPage);
 
 		return "purchaseedit";
 	}
 
 	@PostMapping("/edit_purchase")
 	public String editPurchase(@RequestParam Integer purchaseIndex,
-							   @RequestParam Integer checkIndex, 		@RequestParam Integer checkId,
+							   @RequestParam Integer checkIndexFromArray,
+							   @RequestParam Integer checkIdFromDB,
 
-							   @RequestParam String purchaseName,   	@RequestParam String category,
-							   @RequestParam Long price, 				@RequestParam Integer quantity,
+							   @RequestParam String purchaseName,
+							   @RequestParam String category,
+							   @RequestParam Long price,
+							   @RequestParam Integer quantity,
 
-							   @RequestParam Boolean purchaseShouldBeEdited,
-							   @RequestParam Boolean purchaseShouldBeRemoved,
 							   @RequestParam Boolean requestCameFromInputPage,
-							   @RequestParam Boolean requestCameFromMainPage
-							   ) {
+							   @RequestParam Boolean requestCameFromMainPage,
+							   Map<String, Object> model) {
 		Check check = null; Purchase purchase = null;
 
-		if (purchaseShouldBeEdited) {
-			if (requestCameFromInputPage) {
-				check = checks.get(checkIndex);
-				purchase = check.getPurchase(purchaseIndex);
-			} else if (requestCameFromMainPage) {
-				purchase = purchaseRepository.findOneByNameAndCheck_Id(purchaseName, checkId);
-			}
-
-			if (!purchaseName.equals("")) {
-				purchase.setName(purchaseName);
-			}
-			if (!category.equals("")) {
-				purchase.setCategory(category);
-			}
-			if (!price.equals("")) {
-				purchase.setPrice(price);
-			}
-			if (!quantity.equals("")) {
-				purchase.setQuantity(quantity);
-			}
-
-			if (requestCameFromMainPage) {
-				purchaseRepository.save(purchase);
-			}
-
-			return "checkedit";
+		if (requestCameFromInputPage) {
+			check = checks.get(checkIndexFromArray);
+			purchase = check.getPurchase(purchaseIndex);
+		} else if (requestCameFromMainPage) {
+			check = checkRepository.findOneById(checkIdFromDB);
+			purchase = check.getPurchase(purchaseIndex);
 		}
 
-		if (purchaseShouldBeRemoved) {
-			if (requestCameFromInputPage) {
-				check = checks.get(checkIndex);
-				check.removePurchase(purchaseIndex);
-			} else if (requestCameFromMainPage) {
-				purchaseRepository.deletePurchaseByNameAndCheck_Id(purchaseName, checkId);
-			}
-
-			return "checkedit";
+		if (!purchaseName.equals("")) {
+			purchase.setName(purchaseName);
 		}
+		if (!category.equals("")) {
+			purchase.setCategory(category);
+		}
+		if (!price.equals("")) {
+			purchase.setPrice(price);
+		}
+		if (!quantity.equals("")) {
+			purchase.setQuantity(quantity);
+		}
+
+		if (requestCameFromMainPage) {
+			purchaseRepository.save(purchase);
+		}
+
+		model.put("checkIndexFromArray", checkIndexFromArray);
+		model.put("checkIdFromDB", checkIdFromDB);
+		model.put("purchaseIndex", purchaseIndex);
+		model.put("purchaseName", purchase.getName());
+		model.put("category", purchase.getCategory());
+		model.put("price", purchase.getPrice());
+		model.put("quantity", purchase.getQuantity());
+		model.put("checkIndexFromArray", checkIndexFromArray);
+		model.put("checkIdFromDB", checkIdFromDB);
+		model.put("requestCameFromInputPage", requestCameFromInputPage);
+		model.put("requestCameFromMainPage", requestCameFromMainPage);
 
 		return "purchaseedit";
 	}
+
+//	@PostMapping("/remove")
+//	public String deleteElement() {
+//		if (requestCameFromInputPage) {
+//			checks.remove(checkIndexFromArray);
+//
+//		} else if (requestCameFromMainPage) {
+//			checkRepository.deleteById(checkIdFromDB);
+//		}
+//
+//		if (requestCameFromInputPage) {
+//			check = checks.get(checkIndex);
+//			check.removePurchase(purchaseIndex);
+//		} else if (requestCameFromMainPage) {
+//			purchaseRepository.deletePurchaseByNameAndCheck_Id(purchaseName, checkId);
+//		}
+//	}
 
 	@PostMapping("/filter")
 	public String useFilter(@RequestParam String filter, Map<String, Object> model) {

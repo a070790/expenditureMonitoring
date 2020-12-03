@@ -12,27 +12,31 @@
         </div>
 
         <div>
-            <form id="edit_purchase" action="/edit_check" method="post">
+            <form id="edit_purchase" method="post">
                 <h3>Измените данные покупки</h3>
                 <p>
-                    <label for="category">Категория покупки</label>
-                    <select name="category" id="category">
-                        <option value="продукты">продукты</option>
-                        <option value="одежда">одежда</option>
-                        <option value="развлечения">развлечения</option>
-                    </select>
+                    <label for="category">Категория</label>
+                    <input type="text" id="category" name="category" value="{{category}}"/>
                 </p>
                 <p>
-                    <input type="text" name="price" placeholder="цена" />
+                    <label for="price">Цена</label>
+                    <input type="text" id="price" name="price" value="{{price}}"/>
                 </p>
                 <p>
-                    <input type="text" name="quantity" placeholder="количество" />
+                    <label for="quantity">Количество</label>
+                    <input type="text" id="quantity" name="quantity" value="{{quantity}}"/>
                 </p>
-                <input type="hidden" name="checkIndex" value="{{checkIndex}}" />
-                <input type="hidden" name="shouldBeEdited" value="true" />
-                <input type="hidden" name="shouldBeRemoved" value="false" />
+                <input type="hidden" name="purchaseIndex" value="{{purchaseIndex}}" />
+                <input type="hidden" name="checkIndexFromArray" value="{{checkIndexFromArray}}" />
+                <input type="hidden" name="checkIdFromDB" value="{{checkIdFromDB}}" />
+                <input type="hidden" name="requestCameFromInputPage" value="{{requestCameFromInputPage}}" />
+                <input type="hidden" name="requestCameFromMainPage" value="{{requestCameFromMainPage}}" />
                 <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
                 <button type="submit" form="edit_purchase">ОК</button>
+            </form>
+
+            <form id="back_to_check_editing">
+
             </form>
         </div>
     </body>

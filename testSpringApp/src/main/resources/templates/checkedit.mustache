@@ -12,38 +12,37 @@
         </div>
 
         <div>
-            <form action="/edit_check" method="get">
-                <label for="id">идентификатор</label>
-                <input type="text" name="id" readonly="readonly" value="{{id}}" />
+            <form>
                 <label for="date">дата</label>
                 <input type="text" name="date" readonly="readonly" value="{{date}}" />
                 <label for="sum">сумма</label>
                 <input type="text" name="sum" readonly="readonly" value="{{sum}}" />
                 <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
+                <input type="hidden" name="checkIndexFromArray" value="{{checkIndexFromArray}}" />
+                <input type="hidden" name="checkIdFromDB" value="{{checkIdFromDB}}" />
+                <input type="hidden" name="requestCameFromInputPage" value="{{requestCameFromInputPage}}" />
+                <input type="hidden" name="requestCameFromMainPage" value="{{requestCameFromMainPage}}" />
+                <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
             </form>
         </div>
 
         <div>
-            <form id="edit" action="/edit_check" method="post">
+            <form id="edit_purchase" action="/edit_purchase" method="get">
                 <input type="text" name="purchaseName" placeholder="Наименование покупки">
-                <input type="hidden" name="checkIndex" value="{{checkIndex}}" />
-                <input type="hidden" name="checkId" value="{{id}}" />
-                <input type="hidden" name="shouldBeEdited" value="true" />
-                <input type="hidden" name="shouldBeRemoved" value="false" />
+                <input type="hidden" name="checkIndexFromArray" value="{{checkIndexFromArray}}" />
+                <input type="hidden" name="checkIdFromDB" value="{{checkIdFromDB}}" />
                 <input type="hidden" name="requestCameFromInputPage" value="{{requestCameFromInputPage}}" />
                 <input type="hidden" name="requestCameFromMainPage" value="{{requestCameFromMainPage}}" />
                 <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
-                <button type="submit" form="edit">Изменить</button>
+                <button type="submit" form="edit_purchase">Изменить</button>
             </form>
-            <form id="remove" action="/edit_check"  method="post">
-                <input type="text" name="purchaseName" placeholder="Наименование покупки">
-                <input type="hidden" name="checkIndex" value="{{checkIndex}}" />
-                <input type="hidden" name="checkId" value="{{id}}" />
-                <input type="hidden" name="shouldBeEdited" value="false" />
-                <input type="hidden" name="shouldBeRemoved" value="true" />
-                <input type="hidden" name="requestFromInputPage" value="false" />
+            <form id="remove_check" action="/remove"  method="post">
+                <input type="hidden" name="checkIndexFromArray" value="{{checkIndexFromArray}}" />
+                <input type="hidden" name="checkIdFromDB" value="{{checkIdFromDB}}" />
+                <input type="hidden" name="requestCameFromInputPage" value="{{requestCameFromInputPage}}" />
+                <input type="hidden" name="requestCameFromMainPage" value="{{requestCameFromMainPage}}" />
                 <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
-                <button type="submit" form="remove">Удалить</button>
+                <button type="submit" form="remove_check">Удалить</button>
             </form>
 <!--        </div>-->
 <!--            <form id="return" action="/main" method="get">-->

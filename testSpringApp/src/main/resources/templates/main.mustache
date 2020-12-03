@@ -21,7 +21,8 @@
         </p>
         <p>
             <form id="edit_check" action="/edit_check" method="get">
-                <input type="text" name="checkId" placeholder="идентификатор чека" />
+                <input type="text" name="checkIdFromDB" placeholder="идентификатор чека" />
+                <input type="hidden" name="checkIndexFromArray" value="-1" />
                 <input type="hidden" name="requestCameFromInputPage" value="false" />
                 <input type="hidden" name="requestCameFromMainPage" value="true" />
                 <input type="hidden" name="checkIndex" value="-1" />
