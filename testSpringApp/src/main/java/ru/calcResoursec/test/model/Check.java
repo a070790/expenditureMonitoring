@@ -2,6 +2,7 @@ package ru.calcResoursec.test.model;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 @Entity
@@ -55,20 +56,8 @@ public class Check {
         this.sum = sum;
     }
 
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
+    public Iterable<Purchase> getPurchases() {
+        return purchases;
     }
 
     public void addPurchase(Purchase purchase) {
@@ -76,8 +65,36 @@ public class Check {
         purchase.setCheck(this);
     }
 
-    public void removePurchase(Purchase purchase) {
-        purchases.remove(purchase);
-        purchase.setCheck(null);
+    public void removePurchase(int index) {
+        purchases.remove(index);
+    }
+
+    public Purchase getPurchase(int index) {
+        Purchase purchase = purchases.get(index);
+
+        return purchase;
+    }
+
+    public int searchPurchase(String purchaseName) {
+        if (!purchases.isEmpty()) {
+            Iterator<Purchase> iterator =  purchases.iterator();
+
+            int i = -1;
+            while (iterator.hasNext()) {
+                i++;
+
+                if (purchaseName.equals(iterator.next().getName())) {
+                    return i;
+                }
+            }
+        }
+        return -1;
+    }
+
+    public boolean isNotEmpty() {
+        if (purchases.isEmpty()) {
+            return false;
+        }
+        return true;
     }
 }

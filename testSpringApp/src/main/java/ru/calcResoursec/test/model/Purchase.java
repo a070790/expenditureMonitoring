@@ -36,6 +36,14 @@ public class Purchase {
         this.name = name;
     }
 
+    public Check getCheck() {
+        return check;
+    }
+
+    public void setCheck(Check check) {
+        this.check = check;
+    }
+
     public String getCategory() {
         return category;
     }
@@ -52,11 +60,11 @@ public class Purchase {
         this.price = price;
     }
 
-    public Check getCheck() {
-        return check;
+    public Integer getQuantity() {
+        return quantity;
     }
 
-    public void setCheck(Check check) {
-        this.check = check;
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
     }
 }

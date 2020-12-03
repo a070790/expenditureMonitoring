@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+
+    </head>
+    <body>
+        <div>
+            <form action="/logout" method="post">
+                <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
+                <input type="submit" value="Sign out">
+            </form>
+        </div>
+
+        <div>
+            <form action="/edit_check" method="get">
+                <label for="id">идентификатор</label>
+                <input type="text" name="id" readonly="readonly" value="{{id}}" />
+                <label for="date">дата</label>
+                <input type="text" name="date" readonly="readonly" value="{{date}}" />
+                <label for="sum">сумма</label>
+                <input type="text" name="sum" readonly="readonly" value="{{sum}}" />
+                <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
+            </form>
+        </div>
+
+        <div>
+            <form id="edit" action="/edit_check" method="post">
+                <input type="text" name="purchaseName" placeholder="Наименование покупки">
+                <input type="hidden" name="checkIndex" value="{{checkIndex}}" />
+                <input type="hidden" name="checkId" value="{{id}}" />
+                <input type="hidden" name="shouldBeEdited" value="true" />
+                <input type="hidden" name="shouldBeRemoved" value="false" />
+                <input type="hidden" name="requestCameFromInputPage" value="{{requestCameFromInputPage}}" />
+                <input type="hidden" name="requestCameFromMainPage" value="{{requestCameFromMainPage}}" />
+                <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
+                <button type="submit" form="edit">Изменить</button>
+            </form>
+            <form id="remove" action="/edit_check"  method="post">
+                <input type="text" name="purchaseName" placeholder="Наименование покупки">
+                <input type="hidden" name="checkIndex" value="{{checkIndex}}" />
+                <input type="hidden" name="checkId" value="{{id}}" />
+                <input type="hidden" name="shouldBeEdited" value="false" />
+                <input type="hidden" name="shouldBeRemoved" value="true" />
+                <input type="hidden" name="requestFromInputPage" value="false" />
+                <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
+                <button type="submit" form="remove">Удалить</button>
+            </form>
+<!--        </div>-->
+<!--            <form id="return" action="/main" method="get">-->
+<!--                <input type="hidden" name="_csrf" value="{{_csrf.token}}" />-->
+<!--                <button type="submit" form="remove">Вернуться</button>-->
+<!--            </form>-->
+<!--        <div>-->
+
+        </div>
+
+        <div>
+            {{#purchases}}
+                <div>
+                    <i>{{name}}</i>
+                    <i>{{category}}</i>
+                    <i>{{price}}</i>
+                    <i>{{quantity}}</i>
+                </div>
+            {{/purchases}}
+        </div>
+    </body>
+</html>

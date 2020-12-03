@@ -8,6 +8,6 @@ import java.util.List;
 public interface CheckRepository extends CrudRepository<Check, Integer> {
     Check findOneById(Object id);
     Check findOneByUserAndDate(Object user, Object date);
-//    List<Check> findByCheckNum(Object checkNum);
-//    List<Check> findByDate(Object date);
+    List<Check> findAllByUser(Object user);
+    List<Check> findAllByDate(Object date);
 }
