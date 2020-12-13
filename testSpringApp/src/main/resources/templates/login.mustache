@@ -4,12 +4,27 @@
     <title>Spring Security</title>
 </head>
     <body>
+    <h1>Вход в систему</h1>
+
+
         <form action="/login" method="post">
-            <div><label> User Name : <input type="text" name="username"/> </label></div>
-            <div><label> Password: <input type="password" name="password"/> </label></div>
+            <table cellpadding="10">
+                <tr>
+                    <th>Введите имя пользователя Login :</th>
+                    <th><input type="text" name="username"/></th>
+                </tr>
+                <tr>
+                    <th>Введите пароль:</th>
+                    <th><input type="password" name="password"/></th>
+                </tr>
+                <tr>
+                    <th></th>
+                    <th><div><input type="submit" value="Войти"/></div></th>
+                </tr>
+            </table>
             <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
-            <div><input type="submit" value="Sign In"/></div>
+
         </form>
     </body>
-    <a href="/registration">Add new user</a>
+    <a href="/registration">Регистрация</a>
 </html>

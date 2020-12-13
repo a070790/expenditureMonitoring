@@ -4,28 +4,33 @@
     <title>User List</title>
 </head>
 <body>
+<h1> Пользователи и их права</h1>
 <form action="/userList" method="post">
-    <table>>
-        <thead>
-        <th>Name </th>
-        <th>Role</th>
+    <table border="1"  bgcolor="white" cellpadding="10" >
+        <tr>
+        <th>Имя  </th>
+       <th>Имя пользователя LOGIN </th>
+        <th>Доступные Права</th>
         <th></th>
-        </thead>
+        </tr>
 {{#users}}
-        <tbody>
-
-        <th>
+        <tr>
+        <td>
             {{name}}
-            </th>
-            <th>
+            </td>
+        <td>
+            {{username}}
+        </td>
+            <td>
                {{#roles}}
-                  {{name}} " "
+                  {{name}}
                {{/roles}}
-        </th>
-        <th><a href = "/user/{{id}}">Edit</a></th>
+        </td>
+        <td><a href = "/user/{{id}}">Edit</a></td>
         {{/users}}
-        </tbody>
+        </tr>
     </table>
 </form>
+<a href = "/main">На Главную</a>
 </body>
 </html>
