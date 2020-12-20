@@ -48,10 +48,6 @@
                         <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
                         <button type="submit" form="remove_check">Удалить чек</button>
                 </form></td>
-                <td><form id="return" action="/main" method="get">
-
-                    <button type="submit" form="remove">Вернуться</button>
-                </form></td>
             </tr>
         </table>
         </div>
@@ -68,7 +64,6 @@
                     <td><i>{{sum}}</i></td>
                 </tr>
             </table>
-            {{#purchases}}
                 <div>
                     <table rules="cols">
                         <tr align="center">
@@ -77,15 +72,17 @@
                             <td><b>Цена</b></td>
                             <td><b>Количество</b></td>
                         </tr>
+
+                        {{#purchases}}
                         <tr align="center">
                             <td><i>{{name}}</i></td>
                             <td><i>{{category}}</i></td>
                             <td><i>{{price}}</i></td>
                             <td><i>{{quantity}}</i></td>
                         </tr>
+                        {{/purchases}}
                     </table>
                 </div>
-            {{/purchases}}
         </div>
     </body>
 </html>

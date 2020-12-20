@@ -241,7 +241,7 @@ public class MainController {
 								 @RequestParam Boolean requestCameFromMainPage,
 								 @RequestParam Boolean checkShouldBeRemoved,
 								 @RequestParam Boolean purchaseShouldBeRemoved,
-								 RedirectAttributes redirectAttributes) {
+								 Map<String, Object> model) {
 
 		Check check = null; Purchase purchase = null;
 
@@ -266,17 +266,28 @@ public class MainController {
 				check.removePurchase(purchaseIndex);
 
 				checkRepository.save(check);
-//				int purchaseId = check.searchPurchaseId(purchaseName);
-//				purchaseRepository.deleteById(purchaseId);
 			}
 		}
 
-		redirectAttributes.addFlashAttribute("requestCameFromInputPage", requestCameFromInputPage);
-		redirectAttributes.addFlashAttribute("requestCameFromMainPage", requestCameFromMainPage);
-		redirectAttributes.addFlashAttribute("checkIndexFromArray", checkIndexFromArray);
-		redirectAttributes.addFlashAttribute("checkIdFromDB", checkIdFromDB);
+		check = null;
 
-		return "redirect:/edit_check";
+		if (requestCameFromInputPage) {
+			check = checks.get(checkIndexFromArray);
+		} else if (requestCameFromMainPage) {
+			check = checkRepository.findOneById(checkIdFromDB);
+		}
+
+		Iterable<Purchase> purchases = check.getPurchases();
+		model.put("purchases", purchases);
+
+		model.put("date", check.getDate());
+		model.put("sum", check.getSum());
+		model.put("checkIndexFromArray", checkIndexFromArray);
+		model.put("checkIdFromDB", checkIdFromDB);
+		model.put("requestCameFromInputPage", requestCameFromInputPage);
+		model.put("requestCameFromMainPage", requestCameFromMainPage);
+
+		return "checkedit";
 	}
 
 	@PostMapping("/filter")

@@ -40,7 +40,27 @@
     <table>
         <tr>
             <td><h3>Добавьте покупку</h3></td>
-            <td><h3>Список покупок</h3></td>
+            <td><div align="center">
+                <div>
+                    <table rules="cols">
+                        <tr align="center">
+                            <td><b>Наименование</b></td>
+                            <td><b>Категория</b></td>
+                            <td><b>Цена</b></td>
+                            <td><b>Количество</b></td>
+                        </tr>
+
+                        {{#purchases}}
+                            <tr align="center">
+                                <td><i>{{name}}</i></td>
+                                <td><i>{{category}}</i></td>
+                                <td><i>{{price}}</i></td>
+                                <td><i>{{quantity}}</i></td>
+                            </tr>
+                        {{/purchases}}
+                    </table>
+                </div>
+            </div></td>
         </tr>
         <tr>
             <td>
@@ -54,7 +74,7 @@
                             <td>Наименование покупки</td>
                             <td>
                                 <select name="purchaseName" id="purchaseName">
-                                    <option value="туристическая путевка">туристическая путевка</option>
+                                    <option value="путевка">путевка</option>
                                     <option value="яблоки">яблоки</option>
                                     <option value="футболка">футболка</option>
                                 </select>
@@ -96,16 +116,6 @@
                     </p>
                 </form>
             </td>
-            <td>
-                {{#purchases}}
-                    <div>
-                        <i>{{name}}</i>
-                        <i>{{category}}</i>
-                        <i>{{price}}</i>
-                        <i>{{quantity}}</i>
-                    </div>
-                {{/purchases}}
-            </td>
         </tr>
     </table>
 
@@ -122,14 +132,6 @@
             <button type="submit" form="save_check">Сохранить чек</button>
         </p>
     </form>
-    <form id="edit_check" action="/edit_check" method="post">
-        <p>
-            <input type="hidden" name="checkIndex" value="{{checkIndex}}" />
-            <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
-            <button type="submit" form="edit_check">Редактировать чек</button>
-        </p>
-    </form>
-
 </div>
 
 </body>

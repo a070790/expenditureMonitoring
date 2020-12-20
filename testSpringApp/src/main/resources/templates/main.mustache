@@ -75,7 +75,6 @@
 <!--        <p>-->
 <!--            <a href="/main">Вернуться к списку чеков</a>-->
 <!--        </p>-->
-        {{#checks}}
             <div>
                 <table rules="cols">
                     <tr align="center">
@@ -83,14 +82,15 @@
                         <td align="center"><b>Дата</b></td>
                         <td align="center"><b>Сумма</b></td>
                     </tr>
+                    {{#checks}}
                     <tr align="center">
                         <td><i>{{id}}</i></td>
                         <td><i>{{date}}</i></td>
                         <td><i>{{sum}}</i></td>
                     </tr>
+                    {{/checks}}
                 </table>
             </div>
-        {{/checks}}
     </div>
 </body>
 </html>
