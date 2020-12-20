@@ -71,10 +71,25 @@ public class Check {
     public void addPurchase(Purchase purchase) {
         purchases.add(purchase);
         purchase.setCheck(this);
+
+        calculateSum();
+    }
+
+    public void updatePurchase(Purchase purchase, Integer purchaseIndex) {
+         Purchase updatedPurchase = purchases.get(purchaseIndex);
+
+         updatedPurchase.setName(purchase.getName());
+         updatedPurchase.setQuantity(purchase.getQuantity());
+         updatedPurchase.setPrice(purchase.getPrice());
+         updatedPurchase.setCategory(purchase.getCategory());
+
+         calculateSum();
     }
 
     public void removePurchase(int index) {
         purchases.remove(index);
+
+        calculateSum();
     }
 
     public Purchase getPurchase(int index) {
@@ -83,7 +98,7 @@ public class Check {
         return purchase;
     }
 
-    public int searchPurchase(String purchaseName) {
+    public int searchPurchaseIndex(String purchaseName) {
         if (!purchases.isEmpty()) {
             Iterator<Purchase> iterator =  purchases.iterator();
 
@@ -99,10 +114,36 @@ public class Check {
         return -1;
     }
 
+    public int searchPurchaseId(String purchaseName) {
+        if (!purchases.isEmpty()) {
+            Iterator<Purchase> iterator =  purchases.iterator();
+
+            while (iterator.hasNext()) {
+                Purchase purchase = iterator.next();
+                if (purchaseName.equals(purchase.getName())) {
+                    return purchase.getId();
+                }
+            }
+        }
+        return -1;
+    }
+
     public boolean isNotEmpty() {
         if (purchases.isEmpty()) {
             return false;
         }
         return true;
+    }
+
+    private void calculateSum() {
+        long s = 0;
+        sum = s;
+
+        Iterator<Purchase> iterator = purchases.iterator();
+
+        while (iterator.hasNext()) {
+            Purchase purchase = iterator.next();
+            sum += purchase.getPrice() * purchase.getQuantity();
+        }
     }
 }

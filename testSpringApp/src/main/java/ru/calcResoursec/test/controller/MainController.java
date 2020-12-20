@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ru.calcResoursec.test.model.Check;
 import ru.calcResoursec.test.model.Purchase;
 import ru.calcResoursec.test.model.User;
@@ -13,7 +14,6 @@ import ru.calcResoursec.test.repository.CheckRepository;
 import ru.calcResoursec.test.repository.PurchaseRepository;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
 
@@ -37,14 +37,6 @@ public class MainController {
 
 		return "main";
 	}
-
-//	@PostMapping("/main")
-//	public String addPurchase(Map<String, Object> model) {
-//		Iterable<Check> checkUp = checkRepository.findAll();
-//		model.put("checks", checkUp);
-//
-//		return "main";
-//	}
 
 	@GetMapping("/add_check")
 	public String getCheckInputPage(Map<String, Object> model) {
@@ -78,24 +70,18 @@ public class MainController {
 			if (checkIndex == -1) {
 				check = new Check(user, date, sum);
 				check.addPurchase(new Purchase(purchaseName, category, price, quantity));
-				sum = check.getSum() + price * quantity;
-				check.setSum(sum);
-
 				checks.add(check);
 
 				checkIndex = checks.indexOf(check);
 			} else {
 				check.addPurchase(new Purchase(purchaseName, category, price, quantity));
-				sum = check.getSum() + price * quantity;
-				check.setSum(sum);
-
 				checks.add(check);
 			}
 
 			Iterable<Purchase> purchases = check.getPurchases();
 
 			model.put("purchases", purchases);
-			model.put("sum", sum);
+			model.put("sum", check.getSum());
 			model.put("date", date);
 			model.put("checkIndex", checkIndex);
 			model.put("id", -1);
@@ -106,7 +92,7 @@ public class MainController {
 			checkRepository.save(check);
 			checks.remove(check);
 
-			return "redirect:main";
+			return "redirect:/main";
 		}
 
 		model.put("sum", 0);
@@ -159,7 +145,7 @@ public class MainController {
 
 		if (requestCameFromInputPage) {
 			check = checks.get(checkIndexFromArray);
-			purchaseIndex = check.searchPurchase(purchaseName);
+			purchaseIndex = check.searchPurchaseIndex(purchaseName);
 			purchase = check.getPurchase(purchaseIndex);
 
 			model.put("checkIndexFromArray", checkIndexFromArray);
@@ -167,13 +153,15 @@ public class MainController {
 			model.put("purchaseIndex", purchaseIndex);
 		} else if (requestCameFromMainPage) {
 			check = checkRepository.findOneById(checkIdFromDB);
-			purchaseIndex = check.searchPurchase(purchaseName);
+			purchaseIndex = check.searchPurchaseIndex(purchaseName);
 			purchase = check.getPurchase(purchaseIndex);
 
 			model.put("checkIndexFromArray", -1);
 			model.put("checkIdFromDB", checkIdFromDB);
 			model.put("purchaseIndex", purchaseIndex);
 		}
+
+		model.put("purchaseName", purchaseName);
 
 		model.put("category", purchase.getCategory());
 		model.put("price", purchase.getPrice());
@@ -221,12 +209,6 @@ public class MainController {
 			purchase.setQuantity(quantity);
 		}
 
-		if (requestCameFromMainPage) {
-			purchaseRepository.save(purchase);
-		}
-
-		model.put("checkIndexFromArray", checkIndexFromArray);
-		model.put("checkIdFromDB", checkIdFromDB);
 		model.put("purchaseIndex", purchaseIndex);
 		model.put("purchaseName", purchase.getName());
 		model.put("category", purchase.getCategory());
@@ -237,25 +219,65 @@ public class MainController {
 		model.put("requestCameFromInputPage", requestCameFromInputPage);
 		model.put("requestCameFromMainPage", requestCameFromMainPage);
 
+		if (requestCameFromInputPage) {
+			check.updatePurchase(purchase, purchaseIndex);
+		}
+
+		if (requestCameFromMainPage) {
+			purchaseRepository.save(purchase);
+		}
+
 		return "purchaseedit";
 	}
 
-//	@PostMapping("/remove")
-//	public String deleteElement() {
-//		if (requestCameFromInputPage) {
-//			checks.remove(checkIndexFromArray);
-//
-//		} else if (requestCameFromMainPage) {
-//			checkRepository.deleteById(checkIdFromDB);
-//		}
-//
-//		if (requestCameFromInputPage) {
-//			check = checks.get(checkIndex);
-//			check.removePurchase(purchaseIndex);
-//		} else if (requestCameFromMainPage) {
-//			purchaseRepository.deletePurchaseByNameAndCheck_Id(purchaseName, checkId);
-//		}
-//	}
+	@PostMapping("/remove")
+	public String removePurchase(@RequestParam Integer purchaseIndex,
+								 @RequestParam Integer checkIndexFromArray,
+								 @RequestParam Integer checkIdFromDB,
+
+								 @RequestParam String purchaseName,
+
+								 @RequestParam Boolean requestCameFromInputPage,
+								 @RequestParam Boolean requestCameFromMainPage,
+								 @RequestParam Boolean checkShouldBeRemoved,
+								 @RequestParam Boolean purchaseShouldBeRemoved,
+								 RedirectAttributes redirectAttributes) {
+
+		Check check = null; Purchase purchase = null;
+
+		if(checkShouldBeRemoved) {
+			if (requestCameFromInputPage) {
+				checks.remove(checkIndexFromArray);
+
+			} else if (requestCameFromMainPage) {
+				checkRepository.deleteById(checkIdFromDB);
+			}
+
+			return "redirect:/main";
+		}
+
+		if(purchaseShouldBeRemoved) {
+			if (requestCameFromInputPage) {
+				check = checks.get(checkIdFromDB);
+				check.removePurchase(purchaseIndex);
+			} else if (requestCameFromMainPage) {
+				check = checkRepository.findOneById(checkIdFromDB);
+				purchaseIndex = check.searchPurchaseIndex(purchaseName);
+				check.removePurchase(purchaseIndex);
+
+				checkRepository.save(check);
+//				int purchaseId = check.searchPurchaseId(purchaseName);
+//				purchaseRepository.deleteById(purchaseId);
+			}
+		}
+
+		redirectAttributes.addFlashAttribute("requestCameFromInputPage", requestCameFromInputPage);
+		redirectAttributes.addFlashAttribute("requestCameFromMainPage", requestCameFromMainPage);
+		redirectAttributes.addFlashAttribute("checkIndexFromArray", checkIndexFromArray);
+		redirectAttributes.addFlashAttribute("checkIdFromDB", checkIdFromDB);
+
+		return "redirect:/edit_check";
+	}
 
 	@PostMapping("/filter")
 	public String useFilter(@RequestParam String filter, Map<String, Object> model) {

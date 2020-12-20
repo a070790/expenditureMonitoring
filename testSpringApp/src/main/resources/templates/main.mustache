@@ -3,6 +3,35 @@
 <head>
     <title>Страница пользователя</title>
 </head>
+<style>
+    .wrapper {
+        background-color: whitesmoke;
+        list-style-type: none;
+        padding: 0;
+        border-radius: 3px;
+    }
+    .form-row {
+        display: flex;
+        justify-content: flex-end;
+        padding: .5em;
+    }
+    .form-row > label {
+        padding: .5em 1em .5em 0;
+        flex: 1;
+    }
+    .form-row > input {
+        flex: 2;
+    }
+    .form-row > input,
+    .form-row > button {
+        padding: .5em;
+    }
+    .form-row > button {
+        background: gray;
+        color: white;
+        border: 0;
+    }
+</style>
 <body>
     <div>
         <form action="/logout" method="post">
@@ -11,52 +40,57 @@
         </form>
     </div>
 
+    <div>
+        <a href="/user">Редактировать права пользователя</a>
+    </div>
+
     <div align="center" >
         <p>
-            <form action="/filter" method="post">
-                <input type="text" name="filter">
-                <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
-                <button type="submit">Поиск</button>
-            </form>
-        </p>
-        <p>
-            <form id="edit_check" action="/edit_check" method="get">
-                <input type="text" name="checkIdFromDB" placeholder="идентификатор чека" />
-                <input type="hidden" name="checkIndexFromArray" value="-1" />
-                <input type="hidden" name="requestCameFromInputPage" value="false" />
-                <input type="hidden" name="requestCameFromMainPage" value="true" />
-                <input type="hidden" name="checkIndex" value="-1" />
-                <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
-            </form>
-            <form id="add_check" action="/add_check" method="get">
-                <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
-            </form>
-
-            <button type="submit" form="edit_check">Редактировать чек</button>
-            <button type="submit" form="add_check">Добавить чек</button>
+            <table>
+                <form id="edit_check" action="/edit_check" method="get">
+                    <input type="text" name="checkIdFromDB" placeholder="идентификатор чека" />
+                    <input type="hidden" name="checkIndexFromArray" value="-1" />
+                    <input type="hidden" name="requestCameFromInputPage" value="false" />
+                    <input type="hidden" name="requestCameFromMainPage" value="true" />
+                    <input type="hidden" name="checkIndex" value="-1" />
+                    <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
+                    <button type="submit" form="edit_check">Редактировать чек</button>
+                </form>
+                <form id="add_check" action="/add_check" method="get">
+                    <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
+                    <button type="submit" form="add_check">Новый чек</button>
+                </form>
+            </table>
         </p>
     </div>
-
     <div align="center">
+        <h2>Список чеков</h2>
         <p>
-            <h2>Список чеков</h2>
+        <form action="/filter" method="post">
+            <input type="text" name="filter" placeholder="искать чек по дате">
+            <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
+            <button type="submit">Поиск</button>
+        </form>
         </p>
-        <p>
-            {{#checks}}
-                <div>
-                    <i>{{id}}</i>
-                    <i>{{date}}</i>
-                    <i>{{sum}}</i>
-                </div>
-            {{/checks}}
-        </p>
+<!--        <p>-->
+<!--            <a href="/main">Вернуться к списку чеков</a>-->
+<!--        </p>-->
+        {{#checks}}
+            <div>
+                <table rules="cols">
+                    <tr align="center">
+                        <td align="center"><b>Идентификатор</b></td>
+                        <td align="center"><b>Дата</b></td>
+                        <td align="center"><b>Сумма</b></td>
+                    </tr>
+                    <tr align="center">
+                        <td><i>{{id}}</i></td>
+                        <td><i>{{date}}</i></td>
+                        <td><i>{{sum}}</i></td>
+                    </tr>
+                </table>
+            </div>
+        {{/checks}}
     </div>
-
-    <p>
-        <a href="/main">Вернуться к списку чеков</a>
-    </p>
-<!--    <p>-->
-<!--        <a href="/add_check">Добавить новый чек</a>-->
-<!--    </p>-->
 </body>
 </html>
