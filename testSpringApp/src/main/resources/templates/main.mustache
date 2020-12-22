@@ -57,6 +57,7 @@
                     <button type="submit" form="edit_check">Редактировать чек</button>
                 </form>
                 <form id="add_check" action="/add_check" method="get">
+                    <input type="hidden" name="checkIndex" value="-1" />
                     <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
                     <button type="submit" form="add_check">Новый чек</button>
                 </form>

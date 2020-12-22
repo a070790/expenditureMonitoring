@@ -48,6 +48,11 @@
                         <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
                         <button type="submit" form="remove_check">Удалить чек</button>
                 </form></td>
+                <td><form id="add_check" action="/add_check"  method="get">
+                    <input type="hidden" name="checkIndex" value="{{checkIndexFromArray}}" />
+                    <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
+                    <button type="submit" form="add_check">Вернуться к вводу данных</button>
+                </form></td>
             </tr>
         </table>
         </div>

@@ -64,7 +64,7 @@
         </tr>
         <tr>
             <td>
-                <form id="check" method="post">
+                <form id="check" action="/add_check" method="post">
                     <table>
                         <tr>
                             <td>Дата</td>
@@ -131,6 +131,15 @@
             <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
             <button type="submit" form="save_check">Сохранить чек</button>
         </p>
+    </form>
+    <form id="edit_check" action="/edit_check" method="get">
+        <input type="hidden" name="checkIdFromDB" value="-1" />
+        <input type="hidden" name="checkIndexFromArray" value="{{checkIndex}}" />
+        <input type="hidden" name="requestCameFromInputPage" value="true" />
+        <input type="hidden" name="requestCameFromMainPage" value="false" />
+        <input type="hidden" name="checkIndex" value="-1" />
+        <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
+        <button type="submit" form="edit_check">Редактировать чек</button>
     </form>
 </div>
 

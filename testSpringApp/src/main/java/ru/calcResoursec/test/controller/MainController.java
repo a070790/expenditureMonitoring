@@ -39,7 +39,22 @@ public class MainController {
 	}
 
 	@GetMapping("/add_check")
-	public String getCheckInputPage(Map<String, Object> model) {
+	public String getCheckInputPage(@RequestParam Integer checkIndex,
+									Map<String, Object> model) {
+		Check check = null;
+
+		if (checkIndex != -1) {
+			check = checks.get(checkIndex);
+			Iterable<Purchase> purchases = check.getPurchases();
+
+			model.put("purchases", purchases);
+			model.put("sum", check.getSum());
+			model.put("date", check.getDate());
+			model.put("checkIndex", checkIndex);
+
+			return "checkinput";
+		}
+
 		model.put("sum", 0);
 		model.put("date", "");
 		model.put("checkIndex", -1);
@@ -258,7 +273,7 @@ public class MainController {
 
 		if(purchaseShouldBeRemoved) {
 			if (requestCameFromInputPage) {
-				check = checks.get(checkIdFromDB);
+				check = checks.get(checkIndexFromArray);
 				check.removePurchase(purchaseIndex);
 			} else if (requestCameFromMainPage) {
 				check = checkRepository.findOneById(checkIdFromDB);
