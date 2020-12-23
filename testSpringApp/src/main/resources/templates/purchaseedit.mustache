@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>Редактирование покупки</title>
+    </head>
+    </head>
+    <body>
+        <div>
+            <form action="/logout" method="post">
+                <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
+                <input type="submit" value="Sign out">
+            </form>
+        </div>
+
+        <div align="center">
+            <form id="edit_purchase" method="post">
+                <h3>Измените данные покупки</h3>
+                <table>
+                    <tr>
+                        <td>Категория</td>
+                        <td><input type="text" id="category" name="category" value="{{category}}"/></td>
+                    </tr>
+                    <tr>
+                        <td>Цена</td>
+                        <td><input type="text" id="price" name="price" value="{{price}}"/></td>
+                    </tr>
+                    <tr>
+                        <td>Количество</td>
+                        <td><input type="text" id="quantity" name="quantity" value="{{quantity}}"/></td>
+                    </tr>
+                </table>
+                <input type="hidden" name="purchaseIndex" value="{{purchaseIndex}}" />
+                <input type="hidden" name="checkIndexFromArray" value="{{checkIndexFromArray}}" />
+                <input type="hidden" name="checkIdFromDB" value="{{checkIdFromDB}}" />
+                <input type="hidden" name="requestCameFromInputPage" value="{{requestCameFromInputPage}}" />
+                <input type="hidden" name="requestCameFromMainPage" value="{{requestCameFromMainPage}}" />
+                <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
+                <button type="submit" form="edit_purchase">Сохранить изменения</button>
+            </form>
+            <form id="remove_purchase" action="/remove"  method="post">
+                <input type="hidden" name="purchaseIndex" value="{{purchaseIndex}}" />
+                <input type="hidden" name="purchaseName" value="{{purchaseName}}" />
+                <input type="hidden" name="checkIndexFromArray" value="{{checkIndexFromArray}}" />
+                <input type="hidden" name="checkIdFromDB" value="{{checkIdFromDB}}" />
+                <input type="hidden" name="requestCameFromInputPage" value="{{requestCameFromInputPage}}" />
+                <input type="hidden" name="requestCameFromMainPage" value="{{requestCameFromMainPage}}" />
+                <input type="hidden" name="checkShouldBeRemoved" value="false" />
+                <input type="hidden" name="purchaseShouldBeRemoved" value="true" />
+                <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
+                <button type="submit" form="remove_purchase">Удалить покупку</button>
+            </form>
+
+            <form id="back_to_check_editing" action="/edit_check" method="get">
+                <input type="hidden" name="purchaseIndex" value="{{purchaseIndex}}" />
+                <input type="hidden" name="checkIndexFromArray" value="{{checkIndexFromArray}}" />
+                <input type="hidden" name="checkIdFromDB" value="{{checkIdFromDB}}" />
+                <input type="hidden" name="requestCameFromInputPage" value="{{requestCameFromInputPage}}" />
+                <input type="hidden" name="requestCameFromMainPage" value="{{requestCameFromMainPage}}" />
+                <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
+                <button type="submit" form="back_to_check_editing">Вернуться</button>
+            </form>
+        </div>
+    </body>
+</html>

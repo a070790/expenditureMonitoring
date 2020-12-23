@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Spring Security</title>
+</head>
+<body>
+<h1>Редактирование прав {{user.name}}</h1>
+<title>User Editor</title>
+<form action="/user" method="post">
+    <table  cellpadding="10">
+        <tr>
+            <th><a href="/user">Вернутся к списку пользователей</a></th>
+            <th><a href = "/main">На Главную</a></th>
+        </tr>
+    </table>
+    <table border="1" cellpadding="10">
+        <tr>
+            <th>Имя</th>
+            <th>ID Пользователя</th>
+            <th>Имя пользователя LOGIN</th>
+            <th>Фамилия</th>
+            <th>Пароль</th>
+            <th>Назначить права</th>
+        </tr>
+        <tr>
+            <td><input type="text" name="name" value="{{user.name}}" ></td>
+            <td><input type="text" name="userid" value = "{{user.id}}"/></td>
+            <td><input type="text" name="username" value = "{{user.username}}"/></td>
+            <td><input type="text" name="surname" value = "{{user.surname}}"/></td>
+            <td><input type="text" name="password" value = "{{user.password}}"/></td>
+            <td><label><input type ="checkbox" name = "userCheck" {{checkUser}} >USER</label>
+                <label><input type ="checkbox" name = "adminCheck" {{checkAdmin}} >ADMIN</label></td>
+        </tr>
+    </table>
+    <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
+    <button type="submit">Save</button>
+
+</form>
+
+
+</body>
+</html>

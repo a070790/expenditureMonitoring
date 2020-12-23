@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Новый чек</title>
+</head>
+<style>
+    .form-row {
+        display: flex;
+        justify-content: flex-end;
+        padding: .5em;
+    }
+    .form-row > label {
+        padding: .5em 1em .5em 0;
+        flex: 1;
+    }
+    .form-row > input {
+        flex: 2;
+    }
+    .form-row > input,
+    .form-row > button {
+        padding: .5em;
+    }
+    .form-row > button {
+        background: gray;
+        color: white;
+        border: 0;
+    }
+</style>
+<body>
+<div>
+    <form action="/logout" method="post">
+        <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
+        <input type="submit" value="Sign out">
+    </form>
+</div>
+
+<div align="center">
+    <h2>Новый чек</h2>
+
+    <table>
+        <tr>
+            <td><h3>Добавьте покупку</h3></td>
+            <td><div align="center">
+                <div>
+                    <table rules="cols">
+                        <tr align="center">
+                            <td><b>Наименование</b></td>
+                            <td><b>Категория</b></td>
+                            <td><b>Цена</b></td>
+                            <td><b>Количество</b></td>
+                        </tr>
+
+                        {{#purchases}}
+                            <tr align="center">
+                                <td><i>{{name}}</i></td>
+                                <td><i>{{category}}</i></td>
+                                <td><i>{{price}}</i></td>
+                                <td><i>{{quantity}}</i></td>
+                            </tr>
+                        {{/purchases}}
+                    </table>
+                </div>
+            </div></td>
+        </tr>
+        <tr>
+            <td>
+                <form id="check" action="/add_check" method="post">
+                    <table>
+                        <tr>
+                            <td>Дата</td>
+                            <td><input type="text" name="date" value="{{date}}" /></td>
+                        </tr>
+                        <tr>
+                            <td>Наименование покупки</td>
+                            <td>
+                                <select name="purchaseName" id="purchaseName">
+                                    <option value="путевка">путевка</option>
+                                    <option value="яблоки">яблоки</option>
+                                    <option value="футболка">футболка</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Категория покупки</td>
+                            <td>
+                                <select name="category" id="category">
+                                    <option value="продукты">продукты</option>
+                                    <option value="одежда">одежда</option>
+                                    <option value="развлечения">развлечения</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Цена</td>
+                            <td><input type="text" name="price"/></td>
+                        </tr>
+                        <tr>
+                            <td>Количество</td>
+                            <td><input type="text" name="quantity"/></td>
+                        </tr>
+                        <tr></tr>
+                        <tr>
+                            <td></td>
+                            <td><button type="submit" form="check">Добавить покупку</button></td>
+                        </tr>
+                        <tr>
+                            <td>Итоговая сумма</td>
+                            <td><input type="text" name="sum" readonly="readonly" value="{{sum}}" /></td>
+                        </tr>
+                    </table>
+
+                    <p>
+                        <input type="hidden" name="checkIndex" value="{{checkIndex}}" />
+                        <input type="hidden" name="shouldBeSaved" value="false" />
+                        <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
+                    </p>
+                </form>
+            </td>
+        </tr>
+    </table>
+
+    <form id="save_check" method="post">
+        <p>
+            <input type="hidden" name="purchaseName" value="no">
+            <input type="hidden" name="category" value="no">
+            <input type="hidden" name="price" value="0">
+            <input type="hidden" name="quantity" value="0">
+            <input type="hidden" name="date" value="{{date}}" />
+            <input type="hidden" name="checkIndex" value="{{checkIndex}}" />
+            <input type="hidden" name="shouldBeSaved" value="true" />
+            <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
+            <button type="submit" form="save_check">Сохранить чек</button>
+        </p>
+    </form>
+    <form id="edit_check" action="/edit_check" method="get">
+        <input type="hidden" name="checkIdFromDB" value="-1" />
+        <input type="hidden" name="checkIndexFromArray" value="{{checkIndex}}" />
+        <input type="hidden" name="requestCameFromInputPage" value="true" />
+        <input type="hidden" name="requestCameFromMainPage" value="false" />
+        <input type="hidden" name="checkIndex" value="-1" />
+        <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
+        <button type="submit" form="edit_check">Редактировать чек</button>
+    </form>
+</div>
+
+</body>
+</html>
