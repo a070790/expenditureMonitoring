@@ -1,5 +1,10 @@
 package ru.calcResoursec.test.controller;
 
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartUtilities;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.DefaultCategoryDataset;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,7 +14,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import ru.calcResoursec.test.model.Check;
 import ru.calcResoursec.test.repository.CheckRepository;
 
+<<<<<<< Updated upstream
 import java.util.Date;
+=======
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+>>>>>>> Stashed changes
 import java.util.Map;
 
 @Controller
@@ -43,3 +55,4 @@ public class MainController {
 
 
 }
+
